@@ -126,19 +126,14 @@ export async function part2(silenced = false): Promise<number> {
 		const secondDiff = report[1] - report[2];
 		if (isValidDiff(firstDiff, direction) && isValidDiff(secondDiff, direction)) {
 			if (direction || getDirection(firstDiff) === getDirection(secondDiff)) {
-				// Can remove first two elements but set the direct, then validate the rest of the report
+				// Can remove first element and set the direction, then validate the rest of the report
 				return checkValidity(direction ?? getDirection(firstDiff), report.slice(1), canBranch);
 			} else {
 				// havent set a direction and first two diffs go opposite ways
 				// there are 3 candidates to try
-				const candidateA = checkValidity(direction ?? getDirection(secondDiff), removeFirstElement(), false);
-				const candidateB = checkValidity(
-					direction ?? getDirection(report[0] - report[2]),
-					removeSecondElement(),
-					false,
-				);
-				const candidateC = checkValidity(direction ?? getDirection(firstDiff), removeThirdElement(), false);
-				return candidateA || candidateB || candidateC;
+				return checkValidity(direction ?? getDirection(secondDiff), removeFirstElement(), false) ||
+					checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false) ||
+					checkValidity(direction ?? getDirection(firstDiff), removeThirdElement(), false);
 			}
 		} else if (!canBranch) {
 			return false;
@@ -147,14 +142,12 @@ export async function part2(silenced = false): Promise<number> {
 			return checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false);
 		} else if (!isValidDiff(firstDiff, direction)) {
 			// first diff is bad but second is good, try two cases, removing first and removing
-			const candidateA = checkValidity(direction ?? getDirection(secondDiff), removeFirstElement(), false);
-			const candidateB = checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false);
-			return candidateA || candidateB;
+			return checkValidity(direction ?? getDirection(secondDiff), removeFirstElement(), false) ||
+				checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false);
 		} else {
 			// secondDiff is bad but first was good. try two cases, removing second and removing third
-			const candidateA = checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false);
-			const candidateB = checkValidity(direction ?? getDirection(firstDiff), removeThirdElement(), false);
-			return candidateA || candidateB;
+			return checkValidity(direction ?? getDirection(report[0] - report[2]), removeSecondElement(), false) ||
+				checkValidity(direction ?? getDirection(firstDiff), removeThirdElement(), false);
 		}
 	}
 
