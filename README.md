@@ -44,9 +44,16 @@ Code is written in TypeScript and is organized to be run by [Deno](https://deno.
 
 Each day's solution is found in its own directory within `./src/days`. The inputs for that day are stored in the same directory, as a file named `inputs.txt`.
 
-To execute code for a specific day, update the file [`./src/dev`](./src/dev.ts) to import the day in question, then run:
+To execute code for a specific day, update the file [`./src/dev.ts`](./src/dev.ts) to import the day in question, then run:
 
 ```sh
 deno run dev
 ```
 
+### Starting a New Day
+
+A template of the directory for a new day can be found at `./src/days/template`. Copy this into a new directory for your day, then update the import in [`./src/dev.ts`](./src/dev.ts) to point to your new day file:
+
+```sh
+cp -r ./src/days/template ./src/days/day00
+```

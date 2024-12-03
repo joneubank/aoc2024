@@ -1,7 +1,7 @@
-# 2024 Day XXX
+# 2024 Day 2
 
 ## Red-Nosed Reports
-[Link to Advent Of Code Day](http://adventofcode.com/2024/day/xxx)
+[Link to Advent Of Code Day](http://adventofcode.com/2024/day/2)
 
 ### Part 1
 Fortunately, the first location The Historians want to search isn't a long walk from the Chief Historian's office.
