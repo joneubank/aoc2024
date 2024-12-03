@@ -38,11 +38,15 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 |  24   |                                                  |          |          |                                                                                                                                                                                                                                                                                        |
 |  25   |                                                  |          |          |                                                                                                                                                                                                                                                                                        |
 
-## Puzzles and Notes
+## Development Setup
 
-### Day 1 - 
+Code is written in TypeScript and is organized to be run by [Deno](https://deno.com/).
 
-**P1:** 
+Each day's solution is found in its own directory within `./src/days`. The inputs for that day are stored in the same directory, as a file named `inputs.txt`.
 
-**P2:** 
+To execute code for a specific day, update the file [`./src/dev`](./src/dev.ts) to import the day in question, then run:
+
+```sh
+deno run dev
+```
 
