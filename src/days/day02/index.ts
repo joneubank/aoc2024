@@ -22,7 +22,7 @@ async function readInputs(log: ReturnType<typeof getLogger>): Promise<Inputs> {
 
 	cachedInputs = [];
 
-	const linesIterator = readInputLines('./src/days/day02/input_generated.txt');
+	const linesIterator = readInputLines('./src/days/day02/input.txt');
 	for await (const line of linesIterator) {
 		const levels = splitByWhitespace(line).map(Number);
 		if (levels.some(isNaN) || !levels.every(isFinite)) {
@@ -193,7 +193,7 @@ export async function part2BruteForce(silenced = false): Promise<number> {
 
 	const solution = reports
 		.map(
-			(report) => makePermutations(report).map(analyzeReport).some(isValidAnalysis),
+			(report) => makePermutations(report).some((report) => isValidAnalysis(analyzeReport(report))),
 		)
 		.filter((report) => report === true)
 		.length;
