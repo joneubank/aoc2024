@@ -3,8 +3,7 @@ import readInputLines from '../../readInputs.ts';
 import Timer from '../../timer.ts';
 import type { Range } from '../../utils/isWithin.ts';
 import isWithin from '../../utils/isWithin.ts';
-import max from '../../utils/max.ts';
-import min from '../../utils/min.ts';
+
 import splitByWhitespace from '../../utils/splitByWhitespace.ts';
 
 type Report = number[];
@@ -48,8 +47,8 @@ function analyzeReport(report: Report): ReportAnalysis {
 		acc.push(array[index - 1] - value);
 		return acc;
 	}, []);
-	const maxDiff = max(diffs);
-	const minDiff = min(diffs);
+	const maxDiff = Math.max(...diffs);
+	const minDiff = Math.min(...diffs);
 	return { maxDiff, minDiff };
 }
 
