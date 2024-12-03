@@ -42,7 +42,7 @@ export async function part1(silenced = false): Promise<number> {
 
 	// log('Inputs', inputs);
 	log('Solution', solution);
-	log('Good Solution', 'Timer (ms)', timer.time());
+	log('Solution Run Time (ms)', timer.time());
 	return solution;
 }
 
@@ -82,6 +82,6 @@ export async function part2(silenced = false): Promise<number> {
 
 	const solution = sum;
 	log('Solution', solution);
-	log('Good Solution', 'Timer (ms)', timer.time());
+	log('Solution Run Time (ms)', timer.time());
 	return solution;
 }
