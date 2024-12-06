@@ -5,7 +5,7 @@ function unknownToString(
 	if (input instanceof Error) {
 		return input.message;
 	} else if (typeof input === 'object') {
-		return JSON.stringify(input, jsonOptions?.replacer, jsonOptions?.space);
+		return JSON.stringify(input, jsonOptions?.replacer, Array.isArray(input) ? 0 : jsonOptions?.space);
 	} else {
 		return `${input}`;
 	}
