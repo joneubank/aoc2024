@@ -11,12 +11,14 @@ function unknownToString(
 	}
 }
 
-const formatMessage = (message: unknown) => {
+function formatMessage(message: unknown) {
 	const messageAsString = unknownToString(message, { space: 2 });
 	return typeof message === 'object' && message !== null ? `\n${messageAsString}\n` : messageAsString;
-};
+}
 
-const buildServiceMessage = (...messages: unknown[]) => messages.map(formatMessage).join(' - ');
+function buildServiceMessage(...messages: unknown[]) {
+	return messages.map(formatMessage).join(' - ');
+}
 
 function getLogger(day: number, part: number, silenced = false) {
 	function log(...parts: unknown[]) {
