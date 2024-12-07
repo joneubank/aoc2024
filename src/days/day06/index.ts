@@ -122,6 +122,7 @@ export async function part2(silenced = false): Promise<number> {
 	let guardDirection: Direction = 'N';
 
 	const successfulObstaclePositions = new Set<string>();
+	const testedObstaclePositions = new Set<string>();
 
 	function guardDataHash(position: Vec2, direction: Direction) {
 		return [...position, direction].join(',');
@@ -238,10 +239,12 @@ export async function part2(silenced = false): Promise<number> {
 			continue;
 		}
 
-		if (!nextGuard.isTurn && nextGuard.nextValue === '.') {
-			const obstaclePosition = nextGuard.nextPosition;
-			if (checkForLoop(obstaclePosition, { position: startPosition, direction: 'N' })) {
-				successfulObstaclePositions.add(obstaclePosition.join(','));
+		const obstaclePosition = nextGuard.nextPosition;
+		const obstacleLocationHash = obstaclePosition.join(',');
+		if (!nextGuard.isTurn && nextGuard.nextValue === '.' && !testedObstaclePositions.has(obstacleLocationHash)) {
+			testedObstaclePositions.add(obstacleLocationHash);
+			if (checkForLoop(obstaclePosition, { position: guardPosition, direction: guardDirection })) {
+				successfulObstaclePositions.add(obstacleLocationHash);
 			}
 		}
 
