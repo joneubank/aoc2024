@@ -240,11 +240,11 @@ export async function part2(silenced = false): Promise<number> {
 		}
 
 		const obstaclePosition = nextGuard.nextPosition;
-		const obstacleLocationHash = obstaclePosition.join(',');
-		if (!nextGuard.isTurn && nextGuard.nextValue === '.' && !testedObstaclePositions.has(obstacleLocationHash)) {
-			testedObstaclePositions.add(obstacleLocationHash);
+		const obstacleHash = obstaclePosition.join(',');
+		if (!nextGuard.isTurn && nextGuard.nextValue === '.' && !testedObstaclePositions.has(obstacleHash)) {
+			testedObstaclePositions.add(obstacleHash);
 			if (checkForLoop(obstaclePosition, { position: guardPosition, direction: guardDirection })) {
-				successfulObstaclePositions.add(obstacleLocationHash);
+				successfulObstaclePositions.add(obstacleHash);
 			}
 		}
 
