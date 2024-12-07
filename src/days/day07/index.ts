@@ -51,7 +51,12 @@ export async function part1(silenced = false): Promise<number> {
 			recursiveCanSolve({ target, values: nextValues }, currentValue + nextInputValue);
 	}
 
-	const solution = input.reduce((sum, equation) => recursiveCanSolve(equation, 0) ? equation.target + sum : sum, 0);
+	const solution = input
+		.filter((equation) => recursiveCanSolve(equation, 0))
+		.reduce(
+			(sum, equation) => equation.target + sum,
+			0,
+		);
 
 	log('Solution', solution);
 	log('Solution Run Time (ms)', timer.time());
@@ -76,11 +81,6 @@ export async function part2(silenced = false): Promise<number> {
 		const nextInputValue = values[0];
 		const nextValues = values.slice(1);
 
-		// const canConcatenate = values.length >= 2;
-		// const concatenatedValue = Number(`${values[0]}${values[1]}`);
-		// const nextConcatenateValues = [concatenatedValue, ...values.slice(3)];
-		// canConcatenate && log({ values, target, canConcatenate, concatenatedValue, nextConcatenateValues });
-
 		return recursiveCanSolve({ target, values: nextValues }, currentValue * nextInputValue) ||
 			recursiveCanSolve({ target, values: nextValues }, currentValue + nextInputValue) ||
 			recursiveCanSolve({ target, values: nextValues }, Number(`${currentValue}${nextInputValue}`));
@@ -88,7 +88,12 @@ export async function part2(silenced = false): Promise<number> {
 
 	const timer = new Timer();
 
-	const solution = input.reduce((sum, equation) => recursiveCanSolve(equation, 0) ? equation.target + sum : sum, 0);
+	const solution = input
+		.filter((equation) => recursiveCanSolve(equation, 0))
+		.reduce(
+			(sum, equation) => equation.target + sum,
+			0,
+		);
 
 	log('Solution', solution);
 	log('Solution Run Time (ms)', timer.time());
