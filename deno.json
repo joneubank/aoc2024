@@ -6,6 +6,7 @@
 		"@nothing628/chalk": "jsr:@nothing628/chalk@^1.0.1",
 		"@std/assert": "jsr:@std/assert@1",
 		"@std/expect": "jsr:@std/expect@^1.0.8",
+		"@std/path": "jsr:@std/path@^1.0.8",
 		"@std/random": "jsr:@std/random@^0.1.0",
 		"@std/streams": "jsr:@std/streams@^1.0.8",
 		"@types/node": "npm:@types/node@^22.10.1"
@@ -21,7 +22,7 @@
 	},
 	"lint": {
 		"include": ["src/"],
-		"exclude": ["src/testdata/", "src/fixtures/**/*.ts"],
+		"exclude": [],
 		"rules": {
 			"tags": ["recommended"],
 			"include": ["ban-untagged-todo"],
@@ -30,5 +31,6 @@
 	},
 	"compilerOptions": {
 		// "noUncheckedIndexedAccess": true
+		"noErrorTruncation": true
 	}
 }

@@ -20,12 +20,17 @@ function buildServiceMessage(...messages: unknown[]) {
 	return messages.map(formatMessage).join(' - ');
 }
 
-function getLogger(day: number, part: number, silenced = false) {
+function getLogger(day: number, part: number, isTest: boolean, silenced = false) {
+	const label = [`Day ${day}`, `Part ${part}`];
+	if (isTest) {
+		label.push('Test Input');
+	}
 	function log(...parts: unknown[]) {
 		if (!silenced) {
-			console.log(buildServiceMessage(`Day ${day}`, `Part ${part}`, ...parts));
+			console.log(buildServiceMessage(...label, ...parts));
 		}
 	}
 	return log;
 }
 export default getLogger;
+export type Logger = ReturnType<typeof getLogger>;

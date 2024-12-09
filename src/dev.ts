@@ -1,4 +1,10 @@
-import * as Day from './days/day07/index.ts';
+import Day from './days/day01/index.ts';
 
-await Day.part1();
-await Day.part2();
+await Day.testPart1();
+console.log('\n');
+await Day.runPart1();
+console.log('\n');
+await Day.testPart2();
+console.log('\n');
+await Day.runPart2();
+console.log('\n');
