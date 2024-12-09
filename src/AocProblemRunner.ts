@@ -19,7 +19,7 @@ export type AocInputReducer<Inputs> = (accumulator: Inputs, line: string, log: L
 export type AocProblemRunnerConfig<Inputs> = {
 	day: number;
 	inputLineReducer: AocInputReducer<Inputs>;
-	initialInputs: Inputs;
+	initialInputs: () => Inputs;
 	inputFilePath: string;
 	testInputFilePath?: string;
 	part1Solver: AocProblemSolution<Inputs>;
@@ -29,20 +29,21 @@ export type AocProblemRunnerConfig<Inputs> = {
 function createAocProblemRunner<Inputs>(
 	config: AocProblemRunnerConfig<Inputs>,
 ): AocProblemRunner {
-	let cachedInputs: Inputs | undefined;
+	const cachedInputs = new Map<string, Inputs>();
 
 	async function readInputs(filename: string, log: Logger): Promise<Inputs> {
-		if (cachedInputs) {
-			return cachedInputs;
+		const cachedValue = cachedInputs.get(filename);
+		if (cachedValue) {
+			return cachedValue;
 		}
-		let output: Inputs = config.initialInputs;
+		let output: Inputs = config.initialInputs();
 		const linesIterator = readInputLines(filename);
 		for await (const line of linesIterator) {
 			output = config.inputLineReducer(output, line, log);
 		}
 
-		cachedInputs = output;
-		return cachedInputs;
+		cachedInputs.set(filename, output);
+		return output;
 	}
 
 	async function runSolver(
@@ -58,7 +59,7 @@ function createAocProblemRunner<Inputs>(
 		}
 
 		const inputs = await readInputs(
-			options.isTest && config.testInputFilePath ? config.testInputFilePath : config.inputFilePath,
+			(options.isTest && config.testInputFilePath) ? config.testInputFilePath : config.inputFilePath,
 			log,
 		);
 		log('Starting...');

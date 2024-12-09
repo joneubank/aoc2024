@@ -45,7 +45,7 @@ function part2Solver(inputs: Inputs, log: Logger, timer: Timer): number {
 
 const Day1 = createAocProblemRunner<Inputs>({
 	day: 1,
-	initialInputs: { listOne: [], listTwo: [] },
+	initialInputs: () => ({ listOne: [], listTwo: [] }),
 	inputFilePath: './src/days/day01/input.txt',
 	testInputFilePath: './src/days/day01/input_test.txt',
 	inputLineReducer,
