@@ -4,14 +4,16 @@ import type Timer from '../../timer.ts';
 import splitByWhitespace from '../../utils/splitByWhitespace.ts';
 type Inputs = { listOne: number[]; listTwo: number[] };
 
-function inputLineReducer(accumulator: Inputs, line: string, log: Logger) {
-	const parts = splitByWhitespace(line);
-	if (parts.length !== 2) {
-		log(`Line has strange formatting`, line, parts);
+async function inputParser(initialValue: Inputs, iterator: AsyncIterableIterator<string>, log: Logger) {
+	for await (const line of iterator) {
+		const parts = splitByWhitespace(line);
+		if (parts.length !== 2) {
+			log(`Line has strange formatting`, line, parts);
+		}
+		initialValue.listOne.push(Number(parts[0]));
+		initialValue.listTwo.push(Number(parts[1]));
 	}
-	accumulator.listOne.push(Number(parts[0]));
-	accumulator.listTwo.push(Number(parts[1]));
-	return accumulator;
+	return initialValue;
 }
 
 function part1Solver(inputs: Inputs, log: Logger, timer: Timer): number {
@@ -48,7 +50,7 @@ const Day1 = createAocProblemRunner<Inputs>({
 	initialInputs: () => ({ listOne: [], listTwo: [] }),
 	inputFilePath: './src/days/day01/input.txt',
 	testInputFilePath: './src/days/day01/input_test.txt',
-	inputLineReducer,
+	inputParser,
 	part1Solver,
 	part2Solver,
 });

@@ -1,7 +1,6 @@
-import { dirname } from '@std/path';
 import type { Logger } from './logger.ts';
-import readInputLines from './readInputs.ts';
 import getLogger from './logger.ts';
+import readInputLines from './readInputs.ts';
 import Timer from './timer.ts';
 
 // Outputs
@@ -15,10 +14,14 @@ export type AocProblemRunner = {
 
 // Inputs
 export type AocProblemSolution<Inputs> = (inputs: Inputs, log: Logger, timer: Timer) => number;
-export type AocInputReducer<Inputs> = (accumulator: Inputs, line: string, log: Logger) => Inputs;
+export type AocInputParser<Inputs> = (
+	initialValue: Inputs,
+	iterator: AsyncIterableIterator<string>,
+	log: Logger,
+) => Promise<Inputs>;
 export type AocProblemRunnerConfig<Inputs> = {
 	day: number;
-	inputLineReducer: AocInputReducer<Inputs>;
+	inputParser: AocInputParser<Inputs>;
 	initialInputs: () => Inputs;
 	inputFilePath: string;
 	testInputFilePath?: string;
@@ -36,11 +39,8 @@ function createAocProblemRunner<Inputs>(
 		if (cachedValue) {
 			return cachedValue;
 		}
-		let output: Inputs = config.initialInputs();
 		const linesIterator = readInputLines(filename);
-		for await (const line of linesIterator) {
-			output = config.inputLineReducer(output, line, log);
-		}
+		const output = await config.inputParser(config.initialInputs(), linesIterator, log);
 
 		cachedInputs.set(filename, output);
 		return output;
