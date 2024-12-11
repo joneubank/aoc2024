@@ -7,4 +7,3 @@ console.log('\n');
 await Day.testPart2();
 console.log('\n');
 await Day.runPart2();
-console.log('\n');
