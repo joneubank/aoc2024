@@ -8,6 +8,10 @@ function diff(a: Vec2, b: Vec2): Vec2 {
 	return [b[0] - a[0], b[1] - a[1]];
 }
 
+function hash(input: Vec2): string {
+	return input.join(',');
+}
+
 function negate(input: Vec2): Vec2 {
 	return [-input[0], -input[1]];
 }
@@ -19,5 +23,5 @@ function within(testValue: Vec2, bounds: [Vec2, Vec2]): boolean {
 		testValue[1] <= Math.max(...bounds.map((b) => b[1]));
 }
 
-const Vec2Utils = { add, diff, negate, within };
+const Vec2Utils = { add, diff, hash, negate, within };
 export default Vec2Utils;
