@@ -13,7 +13,7 @@ export type AocProblemRunner = {
 };
 
 // Inputs
-export type AocProblemSolution<Inputs> = (inputs: Inputs, log: Logger, timer: Timer) => number;
+export type AocProblemSolution<Inputs> = (inputs: Inputs, log: Logger, timer: Timer, isTest: boolean) => number;
 export type AocInputParser<Inputs> = (
 	initialValue: Inputs,
 	iterator: AsyncIterableIterator<string>,
@@ -64,7 +64,7 @@ function createAocProblemRunner<Inputs>(
 		);
 		log('Starting...');
 		const timer = new Timer();
-		const solution = solver(inputs, log, timer);
+		const solution = solver(inputs, log, timer, options.isTest);
 		const duration = timer.time();
 		log('Solution', solution);
 		log('Run time (ms)', duration);

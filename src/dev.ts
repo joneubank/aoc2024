@@ -1,4 +1,4 @@
-import Day from './days/day13/index.ts';
+import Day from './days/day14/index.ts';
 
 await Day.testPart1();
 console.log('\n');

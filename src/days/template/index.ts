@@ -10,11 +10,11 @@ async function inputParser(initialValue: Inputs, iterator: AsyncIterableIterator
 	return initialValue;
 }
 
-function part1Solver(inputs: Inputs, log: Logger, timer: Timer): number {
+function part1Solver(inputs: Inputs, log: Logger, timer: Timer, isTest: boolean): number {
 	return 0;
 }
 
-function part2Solver(inputs: Inputs, log: Logger, timer: Timer): number {
+function part2Solver(inputs: Inputs, log: Logger, timer: Timer, isTest: boolean): number {
 	return 0;
 }
 
